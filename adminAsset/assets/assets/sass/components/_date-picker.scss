@@ -1,0 +1,41 @@
+#date-picker {
+  border: 1px solid $color-grey-light--5;
+}
+
+.daterangepicker {
+  // left: 17.4vw !important;
+
+  font-family: 'Nunito Sans', 'Roboto', sans-serif;
+  font-size: 1.6rem !important;
+
+  .drp-selected {
+    display: none;
+  }
+
+  .btn-primary {
+    background-color: $color-primary;
+    border: none;
+  }
+
+  td.active,
+  .daterangepicker td.active:hover,
+  td.active,
+  .daterangepicker td.active {
+    background-color: $color-primary !important;
+  }
+}
+
+.section-dashboard--orderHistory {
+  #reportrange {
+    left: 30vw !important;
+
+    display: flex;
+    justify-content: center;
+
+    font-weight: 600;
+    color: $color-grey-light--5;
+    border: none;
+    border-radius: 0.3rem;
+    background-color: $color-dashboard--light--1 !important;
+  }
+}
