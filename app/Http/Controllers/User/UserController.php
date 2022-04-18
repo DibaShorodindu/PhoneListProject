@@ -266,7 +266,7 @@ class UserController extends Controller
         $this->allData = DB::table('phone_lists')
             ->where('name', 'like', '%'.$result.'%')
             ->paginate(15);
-        return view('userDashboard.peopleSearch', ['allData' => $this->allData]);
+        return view('userDashboard.peopleSearch', ['allData' => $this->allData, 'searchHistory' => $result]);
     }
     public function genderSearch(Request $request)
     {
@@ -275,7 +275,7 @@ class UserController extends Controller
             ->where('gender', 'like', '%'.$result.'%')
             ->paginate(15);
 
-        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+        return view('userDashboard.genderSearch', ['allData' => $this->allData, 'searchHistory' => $result]);
     }
 
     public function relationshipSearch(Request $request)
@@ -285,16 +285,16 @@ class UserController extends Controller
             ->where('relationship_status', 'like', '%'.$result.'%')
             ->paginate(15);
 
-        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+        return view('userDashboard.relationshipStatusSearch', ['allData' => $this->allData,'searchHistory' => $result]);
     }
     public function locationSearch(Request $request)
     {
         $result = $request->location;
         $this->allData = DB::table('phone_lists')
-            ->where('location', 'like', '%'.$result.'%')
+            ->where('location', 'like', '%'.$result.'%',)
             ->paginate(15);
 
-        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+        return view('userDashboard.addressSearch', ['allData' => $this->allData,'searchHistory' => $result]);
     }
     public function hometownSearch(Request $request)
     {
@@ -303,7 +303,7 @@ class UserController extends Controller
             ->where('hometown', 'like', '%'.$result.'%')
             ->paginate(15);
 
-        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+        return view('userDashboard.hometownSearch', ['allData' => $this->allData,'searchHistory' => $result]);
     }
     public function countrySearch(Request $request)
     {
@@ -312,7 +312,7 @@ class UserController extends Controller
             ->where('country', 'like', '%'.$result.'%')
             ->paginate(15);
 
-        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+        return view('userDashboard.countrySearch', ['allData' => $this->allData,'searchHistory' => $result]);
     }
 
 

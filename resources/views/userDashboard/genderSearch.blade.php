@@ -1,9 +1,3 @@
-<?php
-$connect = mysqli_connect("localhost", "root", "", "phonelist");
-$query = "SELECT * FROM phone_lists";
-$result = mysqli_query($connect, $query);
-$rowcount = mysqli_num_rows( $result );
-?>
 @extends('userDashboard.master')
 
 
@@ -46,6 +40,7 @@ $rowcount = mysqli_num_rows( $result );
                     <input
                         type="text"
                         name="gender"
+                        value="{{ $searchHistory }}"
                         id="gender"
                         placeholder="Enter gender..."
                         onkeypress="handleGender"

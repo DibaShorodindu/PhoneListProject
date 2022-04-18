@@ -19,12 +19,11 @@
                 </div>
                 <form id="search" action="{{ route('peopleSearch') }}">
                     <input
-                        type="text"
-                        id='searchPeopleFromPhoneList'
-                        name="name"
-                        onkeypress="handle"
-                        value="{{ $searchHistory }}"
-                        placeholder="Enter name..."
+                            type="text"
+                            id='searchPeopleFromPhoneList'
+                            name="name"
+                            onkeypress="handle"
+                            placeholder="Enter name..."
                     />
                 </form>
 
@@ -39,11 +38,11 @@
                 </div>
                 <form id="searchGender" action="{{ route('genderSearch') }}">
                     <input
-                        type="text"
-                        name="gender"
-                        id="gender"
-                        placeholder="Enter gender..."
-                        onkeypress="handleGender"
+                            type="text"
+                            name="gender"
+                            id="gender"
+                            placeholder="Enter gender..."
+                            onkeypress="handleGender"
                     />
                 </form>
 
@@ -57,11 +56,11 @@
                 </div>
                 <form id="searchrelationship" action="{{ route('relationshipSearch') }}">
                     <input
-                        type="text"
-                        name="relationship"
-                        id="relationship"
-                        placeholder="Enter relationship status..."
-                        onkeypress="handlerelationship"
+                            type="text"
+                            name="relationship"
+                            id="relationship"
+                            placeholder="Enter relationship status..."
+                            onkeypress="handlerelationship"
                     />
                 </form>
             </div>
@@ -74,11 +73,12 @@
                 </div>
                 <form id="searchLocation" action="{{ route('locationSearch') }}">
                     <input
-                        type="text"
-                        name="location"
-                        id="location"
-                        placeholder="Enter current address..."
-                        onkeypress="handlelocation"
+                            type="text"
+                            name="location"
+                            value="{{ $searchHistory }}"
+                            id="location"
+                            placeholder="Enter current address..."
+                            onkeypress="handlelocation"
                     />
                 </form>
             </div>
@@ -91,11 +91,11 @@
                 </div>
                 <form id="searchHometown" action="{{ route('hometownSearch') }}">
                     <input
-                        type="text"
-                        name="hometown"
-                        id="hometown"
-                        placeholder="Enter hometown..."
-                        onkeypress="handlehometown"
+                            type="text"
+                            name="hometown"
+                            id="hometown"
+                            placeholder="Enter hometown..."
+                            onkeypress="handlehometown"
                     />
                 </form>
             </div>
@@ -108,11 +108,11 @@
                 </div>
                 <form id="searchCountry" action="{{ route('countrySearch') }}">
                     <input
-                        type="text"
-                        name="country"
-                        id="country"
-                        placeholder="Enter country..."
-                        onkeypress="handlecountry"
+                            type="text"
+                            name="country"
+                            id="country"
+                            placeholder="Enter country..."
+                            onkeypress="handlecountry"
                     />
                 </form>
             </div>
@@ -155,14 +155,14 @@
             </div>
             <!-- START TABLE -->
             <div
-                class="section-table table-scrollable mx-5 mt-5 mb-2"
-                style="width: 75vw; overflow: auto; max-height: 85vh"
+                    class="section-table table-scrollable mx-5 mt-5 mb-2"
+                    style="width: 75vw; overflow: auto; max-height: 85vh"
             >
                 <div class="container">
-                    <div class="row">
+                    <form class="row">
                         <table
-                            class="table table-hover table-bordered table-responsive"
-                            id="peopleTable"
+                                class="table table-hover table-bordered table-responsive"
+                                id="peopleTable"
                         >
                             <thead>
                             <tr>
@@ -200,21 +200,21 @@
                                     </td>
                                     <td>
                                         <a
-                                            href="https://www.facebook.com/{{ $data->uid }}"
+                                                href="https://www.facebook.com/{{ $data->uid }}"
                                         >https://www.facebook.com/{{ $data->uid }}
                                         </a>
                                     </td>
                                     <td>
                                         <a
-                                            class="btn btn-access btn-access--phone"
-                                            href="{{ route('packages') }}"
+                                                class="btn btn-access btn-access--phone"
+                                                href="{{ route('packages') }}"
                                         >
                                             <i class="bi bi-phone"></i>
                                             <i class="bi bi-caret-down-fill"></i>
                                         </a>
                                         <a
-                                            class="btn btn-access btn-access--email"
-                                            href="{{ route('packages') }}"
+                                                class="btn btn-access btn-access--email"
+                                                href="{{ route('packages') }}"
                                         >
                                             <i class="bi bi-envelope"></i>
                                             <i class="bi bi-caret-down-fill"></i>
@@ -272,11 +272,30 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
+                    </form>
                 </div>
             </div>
-            </form>
+            </div>
             <!-- END TABLE -->
+
+            <!-- START PAGINATION -->
+            <div class="row pb-2 pt-5 mt-2">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <div class="d-sm-inline-flex justify-content-center">
+                                {!! $allData->links() !!}
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- END PAGINATION -->
         </section>
         <!-- END MAIN DASHBOARD -->
     </section>
@@ -310,7 +329,6 @@
 
         });
     </script>
-
     <script>
         function handle(e){
             if(e.key === "Enter"){
@@ -357,6 +375,9 @@
     </script>
 
 
+
+
+
     <!-- TODO Remove if unused -->
     <!-- JOB TITLE FILTER -->
     <!-- <script>
@@ -369,6 +390,7 @@
       });
     });
     </script> -->
+
 
 
 @endsection
