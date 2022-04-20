@@ -16,7 +16,7 @@ use Mail;
 use Session;
 use Stripe;
 use Stripe\Token;
-
+use Exception;
 class StripeController extends Controller
 {
     protected $newUser;
@@ -42,33 +42,38 @@ class StripeController extends Controller
         $data = Card::where('userId', $request->userId)->first();
         if($data)
         {
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-            $stripeToken = Token::create(array(
-                "card" => array(
-                    "number"    =>$data->creditCardNumber,
-                    "exp_month" =>intval(str_before($data->expirationDate, '/')),
-                    "exp_year"  =>intval(str_after($data->expirationDate, '/')),
-                    "cvc"       => $data->cvc,
-                    "name"      => $data->firstName . " " . $data->lastName
-                )
-            ));
+            try {
+                Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                $stripeToken = Token::create(array(
+                    "card" => array(
+                        "number"    =>$data->creditCardNumber,
+                        "exp_month" =>intval(str_before($data->expirationDate, '/')),
+                        "exp_year"  =>intval(str_after($data->expirationDate, '/')),
+                        "cvc"       => $data->cvc,
+                        "name"      => $data->firstName . " " . $data->lastName
+                    )
+                ));
 
-            Stripe\Charge::create ([
-                "amount" => ($request->price) * 100,
-                "currency" => "usd",
-                "source" => $stripeToken,
-                "description" => "This payment is tested purpose phpcodingstuff.com"
-            ]);
-
-            PurchasePlan::createNew($request);
-            Credit::updateCradit($request);
-
-
-            self::invoice($request);
+                Stripe\Charge::create ([
+                    "amount" => ($request->price) * 100,
+                    "currency" => "usd",
+                    "source" => $stripeToken,
+                    "description" => "This payment is tested purpose phpcodingstuff.com"
+                ]);
+                PurchasePlan::createNew($request);
+                Credit::updateCradit($request);
 
 
-            Session::flash('success', 'Payment successful!');
-            return redirect('/settings/plans');
+                self::invoice($request);
+
+
+                Session::flash('success', 'Payment successful!');
+                return redirect('/settings/plans');
+
+            }catch (Exception $e){
+                return redirect('/settings/billing')->with('message', $e->getMessage());
+            }
+
         }
         else
         {

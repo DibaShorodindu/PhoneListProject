@@ -315,11 +315,19 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@updateUserLastName',
         'as'   => 'updateUserLastName',
     ]);
+    Route::post('/settings/updateUserTitle',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserTitle',
+        'as'   => 'updateUserTitle',
+    ]);
     Route::post('/settings/updateUserPhone/{id}',[
         'uses' => '\App\Http\Controllers\User\UserController@updateUserPhone',
         'as'   => 'updateUserPhone',
     ]);
-    Route::post('/settings/updateUserCountry/{id}',[
+    Route::post('/settings/updateUserAddress',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserAddress',
+        'as'   => 'updateUserAddress',
+    ]);
+    Route::get('/settings/updateUserCountry/{id}',[
         'uses' => '\App\Http\Controllers\User\UserController@updateUserCountry',
         'as'   => 'updateUserCountry',
     ]);
@@ -328,7 +336,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'as'   => 'updateUserEmail',
     ]);
 
-    Route::post('/settings/updateUserInfo',[
+    Route::get('/settings/updateUserInfo/{array}',[
         'uses' => '\App\Http\Controllers\User\UserController@updateUserInfo',
         'as'   => 'updateUserInfo',
     ]);

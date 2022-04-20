@@ -129,15 +129,27 @@ class UserController extends Controller
         return redirect()->back();
 
     }
+    public function updateUserTitle(Request $request)
+    {
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['title' => $request->title]);
+        return redirect()->back();
+
+    }
     public function updateUserPhone(Request $request, $id)
     {
         $this->user = PhoneListUserModel::where('id', $id)->update(['phone' => $request->phone]);
         return redirect()->back();
 
     }
-    public function updateUserCountry(Request $request, $id)
+    public function updateUserAddress(Request $request)
     {
-        $this->user = PhoneListUserModel::where('id', $id)->update(['country' => $request->country]);
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['address' => $request->address]);
+        return redirect()->back();
+
+    }
+    public function updateUserCountry($id)
+    {
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['country' => $id]);
         return redirect()->back();
     }
     public function updateUserEmail(Request $request, $id)
@@ -154,18 +166,18 @@ class UserController extends Controller
         return redirect()->back();
 
     }
-    public function updateUserInfo()
+    public function updateUserInfo($array)
     {
-        dd(Request('id'));
+        $myArray = explode(',', $array);
+        $address = array_slice($myArray,5);
+        $myAddress = implode(',', $address);
+        //dd($myAddress);
 
-        $id = Request('id');
-        $option = PhoneListUserModel::where('id', $id)->first();
-        $option->fristName = Request('fristName');
-        $option->lastName = Request('lastName');
-        //$option->phone = $this->user['phone'];
-        //$option->country = $this->user['country'];
-        //$option->update();
-        /*$this->user = PhoneListUserModel::where('id', $id)->update(['country' => $request->country]);*/
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['firstName' => $myArray[1]]);
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['lastName' => $myArray[2]]);
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['title' => $myArray[3]]);
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['phone' => $myArray[4]]);
+        $this->user = PhoneListUserModel::where('id', Auth::user()->id)->update(['address' => $myAddress]);
         return redirect()->back();
 
     }
@@ -373,7 +385,7 @@ class UserController extends Controller
     }
     public function exports()
     {
-       $data = ExportHistori::where('userId',Auth::user()->id)->orderBy('createdOn', 'desc')->paginate(6);
+       $data = ExportHistori::where('userId',Auth::user()->id)->orderBy('createdOn', 'desc')->paginate(9);
         return view('userDashboard.settings.exports.exports', ['exportHistory' => $data]);
     }
     public function reDownloadFile($file_name)

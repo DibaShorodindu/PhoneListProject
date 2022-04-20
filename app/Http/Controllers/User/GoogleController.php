@@ -64,11 +64,13 @@ class GoogleController extends Controller
                 $creditPurchase [$j] = $plan->credit;
                 $j++;
             }
-            return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK));
+            return redirect('loggedInUser');
+            //return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK));
 
 
         } catch (Exception $e) {
-            dd($e);
+            //dd($e);
+            return redirect('/phonelistUserLogin')->with('message',$e);
         }
 
     }

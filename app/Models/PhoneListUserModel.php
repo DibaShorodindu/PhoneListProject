@@ -16,6 +16,8 @@ class PhoneListUserModel extends Authenticatable
         'phone',
         'country',
         'google_id',
+        'title',
+        'address',
     ];
 
     protected $hidden = [
