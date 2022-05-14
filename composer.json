@@ -29,7 +29,8 @@
         "stripe/stripe-php": "^7.119",
         "swiftmailer/swiftmailer": "6.3",
         "symfony/mailer": "^6.0",
-        "victorybiz/laravel-crypto-payment-gateway": "^1.2"
+        "victorybiz/laravel-crypto-payment-gateway": "^1.2",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

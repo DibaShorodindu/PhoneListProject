@@ -1,5 +1,7 @@
 'use strict';
 
+
+
 // PEOPLE NAME SEARCH FILTER
 function searchPeople() {
   let input, filter, table, tr, td, i, txtValue;
@@ -22,18 +24,30 @@ function searchPeople() {
   }
 }
 
-//Access data via button
-let accessDataBtn, buttonGroup, messageBox;
-accessDataBtn = document.getElementById('accessBtn');
-buttonGroup = document.getElementById('buttonGroup');
+
+
+
+
+/*let collection,  buttonGroup, messageBox, messagePhone;
+
 messageBox = document.getElementById('message');
 
-accessDataBtn.addEventListener('click', showBtns);
-
-function showBtns() {
-  accessDataBtn.classList.add('hide');
+function accessPhoneNumber(id, phone, email) {
+  collection = document.getElementById(id);
+  buttonGroup = document.getElementById('buttonGroup'+id);
+  collection.classList.add('hide');
   buttonGroup.classList.remove('hide');
+  document.getElementById('messagePhone'+id).innerHTML = phone;
+  if (email != null)
+    document.getElementById('messageEmail'+id).innerHTML = email;
+  else
+    document.getElementById('messageEmail'+id).innerHTML = 'N/A';
 
-  document.getElementById('messagePhone').innerHTML = '+880 1234 345 45';
-  document.getElementById('messageEmail').innerHTML = 'a@gamail.com';
-}
+}*/
+
+
+
+
+
+
+

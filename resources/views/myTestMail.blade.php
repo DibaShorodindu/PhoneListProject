@@ -11,7 +11,7 @@
 </body>
 </html>--}}
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -53,7 +53,7 @@
         <div class="col-xs-6">
             <h4>To:</h4>
             <address>
-                <strong>Andre Madarang</strong><br />
+                <strong>{{ $name }}</strong><br />
                 <span>andre@andre.com</span> <br />
                 <span>123 Address St.</span>
             </address>

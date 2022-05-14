@@ -116,6 +116,10 @@ Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFaceboo
 
 /** search routes */
 Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
+Route::resource('/autocomplete-search-data', TypeaheadController::class);
+//Route::resource('/autocomplete-search-data/{id}', [TypeaheadController::class, 'autocompleteSearchData'])->name('autocomplete-search-data');
+
+
 
 Route::get('searchPeople{id}',[
     'uses' => 'App\Http\Controllers\User\Searching\TypeaheadController@searchPeople',
@@ -145,6 +149,8 @@ Route::get('/customExport', [
     'uses' => '\App\Http\Controllers\AdminController@customExport',
     'as' => 'customExport'
 ]);
+
+
 
 Route::get('/selected-file-export{id}', [
     'uses' => '\App\Http\Controllers\AdminController@selectedfileExport',
@@ -239,6 +245,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'as'   => 'people',
     ]);
 
+
+    Route::post('/people/fetch_data', '\App\Http\Controllers\User\UserController@peopleDataHistory')->name('peopleDataHistory');
 
     //searching
 
@@ -351,7 +359,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@history',
         'as'   => 'history',
     ]);
-
+    Route::post('/daterange/fetch_data', '\App\Http\Controllers\User\UserController@historyDate')->name('historyDate');
 
     Route::get('/settings/upgrade',[
         'uses' => '\App\Http\Controllers\User\UserController@upgradeUser',

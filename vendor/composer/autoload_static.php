@@ -820,6 +820,7 @@ class ComposerStaticInit1767a134c4547802a5c83425a70b7a01
         'App\\Models\\Card' => __DIR__ . '/../..' . '/app/Models/Card.php',
         'App\\Models\\Credit' => __DIR__ . '/../..' . '/app/Models/Credit.php',
         'App\\Models\\CreditHistory' => __DIR__ . '/../..' . '/app/Models/CreditHistory.php',
+        'App\\Models\\DownloadedList' => __DIR__ . '/../..' . '/app/Models/DownloadedList.php',
         'App\\Models\\ExportHistori' => __DIR__ . '/../..' . '/app/Models/ExportHistori.php',
         'App\\Models\\PhoneList' => __DIR__ . '/../..' . '/app/Models/PhoneList.php',
         'App\\Models\\PhoneListUserModel' => __DIR__ . '/../..' . '/app/Models/PhoneListUserModel.php',

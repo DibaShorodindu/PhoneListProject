@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +23,15 @@ class Credit extends Model
         self::$credit->useableCredit  = $usableCredit-count($request->chk);
         self::$credit->save();
     }
-    public static function updateCradit($request)
+    public static function updateUserCraditForOne($request)
+    {
+        self::$credit = Credit::find(Auth::user()->id);
+        $usableCredit = self::$credit->useableCredit;
+        self::$credit->userId         = Auth::user()->id;
+        self::$credit->useableCredit  = $usableCredit-1;
+        self::$credit->save();
+    }
+    public static function updateCredit($request)
     {
         self::$credit = Credit::find($request->userId);
         $usableCredit = self::$credit->useableCredit;

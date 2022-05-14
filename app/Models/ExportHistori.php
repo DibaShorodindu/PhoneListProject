@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exports\CustomExport;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +42,22 @@ class ExportHistori extends Model
             return '';
         }
     }
+    public static function saveFileForOne($request)
+    {
+        $filepath = 'user/release/'.Auth::user()->id.'.'.time().'.'.'phoneList.xlsx' ;
+
+        self::$file = Excel::store(new CustomExport($request), $filepath, 'public');
+        if(self::$file)
+        {
+            self::$fileName = Auth::user()->id.'.'.time().'.'.'phoneList.xlsx';
+            self::$fileDirectory = 'user/release/';
+            self::$fileUrl = self::$fileDirectory.self::$fileName;
+            return self::$fileUrl;
+        }
+        else{
+            return '';
+        }
+    }
 
     public static function newExportHistori($request)
     {
@@ -49,6 +66,16 @@ class ExportHistori extends Model
         self::$history->createdOn         = Carbon::now();
         self::$history->file              = self::saveFile($request);
         self::$history->record            = count($request->chk);
+        self::$history->save();
+    }
+
+    public static function newExportHistoriForOne($request)
+    {
+        self::$history = new ExportHistori();
+        self::$history->userId            = Auth::user()->id;
+        self::$history->createdOn         = Carbon::now();
+        self::$history->file              = self::saveFileForOne($request);
+        self::$history->record            = 1;
         self::$history->save();
     }
 }

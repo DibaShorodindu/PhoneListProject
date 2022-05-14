@@ -62,7 +62,7 @@
                            <a href="{{ route('category', ['id' => 'N'])  }}" class="blue-link">N</a>
                            <a href="{{ route('category', ['id' => 'O'])  }}" class="blue-link">O</a>
                            <a href="{{ route('category', ['id' => 'P'])  }}" class="blue-link">P</a>
-                           <a href="{{ route('category', ['id' => 'Q'])  }}l" class="blue-link">Q</a>
+                           <a href="{{ route('category', ['id' => 'Q'])  }}" class="blue-link">Q</a>
                            <a href="{{ route('category', ['id' => 'R'])  }}" class="blue-link">R</a>
                            <a href="{{ route('category', ['id' => 'S'])  }}" class="blue-link">S</a>
                            <a href="{{ route('category', ['id' => 'T'])  }}" class="blue-link">T</a>

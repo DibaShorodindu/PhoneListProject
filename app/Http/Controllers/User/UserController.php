@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Card;
 use App\Models\Credit;
 use App\Models\CreditHistory;
+use App\Models\DownloadedList;
 use App\Models\ExportHistori;
 use App\Models\PhoneList;
 use App\Models\PhoneListUserModel;
@@ -34,13 +35,25 @@ class UserController extends Controller
     protected $creditHistory;
     protected $exportHistory;
     protected $purchasePlan;
+    protected $creditHistorydate;
+    protected $allDataIds;
 
 
     public function dashboard()
     {
         if(Auth::check()){
             $this->creditHistory = CreditHistory::where('userId',Auth::user()->id)->orderBy('date', 'desc')->get();
-            $this->purchasePlan = PurchasePlan::where('userId',Auth::user()->id)->get();
+            $this->purchasePlan = PurchasePlan::where('userId',Auth::user()->id)->orderBy('start', 'desc')->get();
+            $this->creditHistorydate = CreditHistory::where('userId',Auth::user()->id)->orderBy('date', 'desc')->get();
+
+            $date = [];
+            $k=0;
+            foreach ($this->creditHistorydate as $historyDate)
+            {
+                $date [$k] = $historyDate->date;
+                $k++;
+            }
+
             $i=0;
             $dataPurchase = [];
             foreach ($this->creditHistory as $history)
@@ -48,14 +61,24 @@ class UserController extends Controller
                 $dataPurchase [$i] = $history->dataPurchase;
                 $i++;
             }
+
             $j=0;
             $creditPurchase = [];
             foreach ($this->purchasePlan as $plan)
             {
-                $creditPurchase [$j] = $plan->credit;
+                if($date[$j] == $plan->start)
+                {
+                    $creditPurchase [$j] = $plan->credit;
+                }
+                else
+                {
+                    $creditPurchase [$j] = 0;
+                }
+
                 $j++;
             }
-            return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK));
+            return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK))->with('day',json_encode($date,JSON_NUMERIC_CHECK));
+
         }
         return redirect('/phonelistUserLogin')->with('message','Oppes! You have entered invalid credentials');
 
@@ -93,6 +116,7 @@ class UserController extends Controller
                 'userId' => $newUser->id,
                 'useableCredit' => 20,
             ]);
+            CreditHistory::createNew($newUser);
             return redirect("loggedInUser")->with('message2', 'data Updated Successfully');
         }
     }
@@ -269,9 +293,40 @@ class UserController extends Controller
 
     public function people()
     {
-        $this->allData = PhoneList::paginate(15);
+        $this->allDataIds = DownloadedList::where('userId', Auth::user()->id)->get();
+        $getdownloadedIds = 0;
+        foreach ($this->allDataIds as $dataIds)
+        {
+            $getdownloadedIds = $getdownloadedIds.','.$dataIds->downloadedIds;
+        }
+        //dd(explode(',',$getdownloadedIds));
+        //$this->allData = PhoneList::paginate(15);
+        $this->allData = PhoneList::whereNotIn('id', explode(',',$getdownloadedIds))->paginate(15);
         return view('userDashboard.people', ['allData' => $this->allData]);
     }
+
+    public function peopleDataHistory(Request $request)
+    {
+        if($request->ajax())
+        {
+            $credit=Credit::find(Auth::user()->id);
+            if ($credit->useableCredit >= 1)
+            {
+                ExportHistori::newExportHistoriForOne($request);
+                DownloadedList::createForOne($request);
+                Credit::updateUserCraditForOne(1);
+                CreditHistory::createForOne(1);
+            }
+
+           $data = DB::table('phone_lists')
+                    ->where('id', 'like', $request->id)
+                    ->get();
+
+            echo json_encode($data);
+        }
+    }
+
+
     public function peopleSearch(Request $request)
     {
         $result = $request->name;
@@ -326,6 +381,9 @@ class UserController extends Controller
 
         return view('userDashboard.countrySearch', ['allData' => $this->allData,'searchHistory' => $result]);
     }
+
+
+
 
 
     public function account()
@@ -391,7 +449,7 @@ class UserController extends Controller
     public function reDownloadFile($file_name)
     {
         $data = ExportHistori::find($file_name);
-        return response()->download('storage/'. $data->file,'phonelist.xlsx');
+        return response()->download('public/storage/'. $data->file,'phonelist.xlsx');
     }
     public function csvExportSettings()
     {
@@ -461,6 +519,23 @@ class UserController extends Controller
         return view('userDashboard.settings.credits.history', ['userPurchasePlan' => $items]);
     }
 
+    public function historyDate(Request $request)
+    {
+        if($request->ajax())
+        {
+            if($request->from_date != '' && $request->to_date != '')
+            {
+                $data = DB::table('credit_histories')
+                    ->whereBetween('date', array($request->from_date, $request->to_date))
+                    ->get();
+            }
+            else
+            {
+                $data = DB::table('credit_histories')->orderBy('date', 'desc')->get();
+            }
+            echo json_encode($data);
+        }
+    }
 
     public function upgradeUser()
     {

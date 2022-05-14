@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 use App\Exports\CustomExport;
 use App\Models\Credit;
 use App\Models\CreditHistory;
+use App\Models\DownloadedList;
 use App\Models\ExportHistori;
 use App\Models\PurchasePlan;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
@@ -69,8 +71,31 @@ class AdminController extends Controller
         if ($credit->useableCredit >= count($request->chk))
         {
             ExportHistori::newExportHistori($request);
+            DownloadedList::createNew($request);
             Credit::updateUserCradit($request);
             CreditHistory::create($request);
+            /*$this->allDataIds = DownloadedList::where('userId', Auth::user()->id)->get();
+            $getdownloadedIds = 0;
+            foreach ($this->allDataIds as $dataIds)
+            {
+                $getdownloadedIds = $getdownloadedIds.','.$dataIds->downloadedIds;
+            }
+
+            $arrayOfArrays = [$request->chk , explode(',',$getdownloadedIds)];
+            $commonValue = array_intersect(...$arrayOfArrays);*/
+
+            /*for ($i = 0; $i<count($request->chk); $i++)
+            {
+                for ($j = 0; $j<count(explode(',',$getdownloadedIds)); $j++)
+                {
+                    if ($request->chk[$i] != $getdownloadedIds[j]);
+                    {
+
+                    }
+                }
+            }
+            $this->allData = PhoneList::whereNotIn('id', explode(',',$getdownloadedIds))->paginate(15);*/
+            //return (new CustomExport($commonValue))->download('phoneList.xlsx');
             return (new CustomExport($request->chk))->download('phoneList.xlsx');
         }
         else
@@ -78,6 +103,7 @@ class AdminController extends Controller
             return redirect('/settings/upgrade');
         }
     }
+
 
 
 

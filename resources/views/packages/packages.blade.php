@@ -63,7 +63,12 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('/phonelistUserRegister') }}">sign up</a>
+                            @guest
+                                <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-default">sign up</a>
+                            @else
+                                <a href="{{ route('billing') }}" class="btn btn-default">sign up</a>
+                            @endguest
+
                         </div>
                     </div>
                 </div>
@@ -87,7 +92,23 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('/phonelistUserRegister') }}">sign up</a>
+                            @guest
+                                <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-default">sign up</a>
+                            @else
+                                <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input hidden  type="number" name="credit" value="5000"/>
+                                    <input hidden  type="number" name="phoneNumber" value="5000"/>
+                                    <input hidden  type="text" name="dataFilter" value="Data Filters"/>
+                                    <input hidden  type="text" name="csvExport" value="CSV Export"/>
+                                    <input hidden  type="number" name="price" value="100"/>
+                                    <input hidden  type="number" name="userId" value="{{ Auth::user()->id }}"/>
+                                    <input hidden  type="text" name="plan" value="Basic"/>
+                                    <div class="pricingTable-signup">
+                                        <button type="submit" class="btn btn-default">sign up</button>
+                                    </div>
+                                </form>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -110,7 +131,23 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('/phonelistUserRegister') }}">sign up</a>
+                            @guest
+                                <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-default">sign up</a>
+                            @else
+                                <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input hidden  type="number" name="credit" value="10000"/>
+                                    <input hidden  type="number" name="phoneNumber" value="10000"/>
+                                    <input hidden  type="text" name="dataFilter" value="Data Filters"/>
+                                    <input hidden  type="text" name="csvExport" value="CSV Export"/>
+                                    <input hidden  type="number" name="price" value="190"/>
+                                    <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                    <input hidden  type="text" name="plan" value="Professional"/>
+                                    <div class="pricingTable-signup">
+                                        <button type="submit" class="btn btn-default">sign up</button>
+                                    </div>
+                                </form>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -135,7 +172,23 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('/phonelistUserRegister') }}">sign up</a>
+                            @guest
+                                <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-default">sign up</a>
+                            @else
+                                <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input hidden  type="number" name="credit" value="50000"/>
+                                    <input hidden  type="number" name="phoneNumber" value="50000"/>
+                                    <input hidden  type="text" name="dataFilter" value="Data Filters"/>
+                                    <input hidden  type="text" name="csvExport" value="CSV Export"/>
+                                    <input hidden  type="number" name="price" value="400"/>
+                                    <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                    <input hidden  type="text" name="plan" value="Business"/>
+                                    <div class="pricingTable-signup">
+                                        <button type="submit" class="btn btn-default">sign up</button>
+                                    </div>
+                                </form>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -158,7 +211,23 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('/phonelistUserRegister') }}">sign up</a>
+                            @guest
+                                <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-default">sign up</a>
+                            @else
+                                <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input hidden  type="number" name="credit" value="300000"/>
+                                    <input hidden  type="number" name="phoneNumber" value="300000"/>
+                                    <input hidden  type="text" name="dataFilter" value="Data Filters"/>
+                                    <input hidden  type="text" name="csvExport" value="CSV Export"/>
+                                    <input hidden  type="number" name="price" value="1000"/>
+                                    <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                    <input hidden  type="text" name="plan" value="Business Pro"/>
+                                    <div class="pricingTable-signup">
+                                        <button type="submit" class="btn btn-default">sign up</button>
+                                    </div>
+                                </form>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -181,7 +250,23 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('/phonelistUserRegister') }}">sign up</a>
+                            @guest
+                                <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-default">sign up</a>
+                            @else
+                                <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input hidden  type="number" name="credit" value="10000000"/>
+                                    <input hidden  type="number" name="phoneNumber" value="10000"/>
+                                    <input hidden  type="text" name="dataFilter" value="Data Filters"/>
+                                    <input hidden  type="text" name="csvExport" value="CSV Export"/>
+                                    <input hidden  type="number" name="price" value="1500"/>
+                                    <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                    <input hidden  type="text" name="plan" value="Enterprise"/>
+                                    <div class="pricingTable-signup">
+                                        <button type="submit" class="btn btn-default">sign up</button>
+                                    </div>
+                                </form>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -206,7 +291,7 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="{{ route('contact') }}">Contact Us</a>
+                            <a href="{{ route('contact') }}" class="btn btn-default">Contact Us</a>
                         </div>
                     </div>
                 </div>

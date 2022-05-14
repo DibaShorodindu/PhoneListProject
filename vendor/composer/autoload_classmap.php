@@ -55,6 +55,7 @@ return array(
     'App\\Models\\Card' => $baseDir . '/app/Models/Card.php',
     'App\\Models\\Credit' => $baseDir . '/app/Models/Credit.php',
     'App\\Models\\CreditHistory' => $baseDir . '/app/Models/CreditHistory.php',
+    'App\\Models\\DownloadedList' => $baseDir . '/app/Models/DownloadedList.php',
     'App\\Models\\ExportHistori' => $baseDir . '/app/Models/ExportHistori.php',
     'App\\Models\\PhoneList' => $baseDir . '/app/Models/PhoneList.php',
     'App\\Models\\PhoneListUserModel' => $baseDir . '/app/Models/PhoneListUserModel.php',

@@ -31,7 +31,11 @@
                     <h1 class="mb-5">
                         How can Phone List help you throughout your entire process?
                     </h1>
-                    <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-grad">Try It Now</a>
+                    @guest
+                        <a href="{{ route('/phonelistUserRegister') }}" class="btn btn-grad">Try It Now</a>
+                    @else
+                        <a href="{{ route('loggedInUser') }}" class="btn btn-grad">Try It Now</a>
+                    @endguest
                 </div>
                 <div class="col-md-6 px-5 pt-5 mt-md-0 mt-5">
                     <p>
@@ -59,7 +63,11 @@
                         Find the best companies in your territory and prioritize based
                         on technology, hiring, funding, and dozens of other triggers.
                     </p>
-                    <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @guest
+                        <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @else
+                        <a href="{{ route('loggedInUser') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @endguest
                 </div>
                 <div class="offset-md-1 col-md-6 mt-md-0 mt-5 pt-md-0 pt-5">
                     <img
@@ -90,7 +98,11 @@
                         Find the best contacts at each company and search by name, job
                         title, location, and dozens of other signals.
                     </p>
-                    <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @guest
+                        <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @else
+                        <a href="{{ route('loggedInUser') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @endguest
                 </div>
             </div>
         </div>
@@ -117,7 +129,11 @@
                         correct, append, and update your data as time goes on for an
                         everlasting accurate database.
                     </p>
-                    <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @guest
+                        <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @else
+                        <a href="{{ route('loggedInUser') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @endguest
                 </div>
                 <div class="offset-md-1 col-md-6 mt-md-0 mt-5 pt-md-0 pt-5">
                     <img
@@ -153,7 +169,11 @@
                         information they need to connect and can quickly capitalize on
                         new business opportunities.
                     </p>
-                    <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @guest
+                        <a href="{{ route('/phonelistUserRegister') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @else
+                        <a href="{{ route('loggedInUser') }}" class="btn-txt mt-3"> Try It Now → </a>
+                    @endguest
                 </div>
             </div>
         </div>

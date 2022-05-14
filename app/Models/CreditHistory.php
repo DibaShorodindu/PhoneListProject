@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,23 +28,33 @@ class CreditHistory extends Model
         self::$creditHistory->userId         = $request->userId;
         self::$creditHistory->usedCredit  = count($request->chk);
         self::$creditHistory->useAbleCredit  = $usableCredit;
-        self::$creditHistory->prevCredit  = $usableCredit;
+        self::$creditHistory->prevCredit  = $usableCredit+count($request->chk);
         self::$creditHistory->dataPurchase  = count($request->chk);
         self::$creditHistory->date  = Carbon::now();
         self::$creditHistory->save();
     }
-    /*public static function updateUseableCredit($request)
+    public static function createForOne($request)
     {
-        self::$purchagePlan = PurchasePlan::where('userId', $request->userId)->update([
-            'useAbleCredit'       => $request->userId,
-            'plan'         => $request->plan,
-            'price'        => $request->price,
-            'credit'       => $request->credit,
-            'phoneNumber'  => $request->phoneNumber,
-            'dataFilter'   => $request->dataFilter,
-            'csvExport'    => $request->csvExport,
-            'start'        => Carbon::now()->toDateString(),
-            'end'          => Carbon::now()->addDays(29)->format('Y-m-d'),
-        ]);
-    }*/
+        self::$creditHistory = new CreditHistory();
+        self::$credit = Credit::find(Auth::user()->id);
+        $usableCredit = self::$credit->useableCredit;
+        self::$creditHistory->userId         = Auth::user()->id;
+        self::$creditHistory->usedCredit  = 1;
+        self::$creditHistory->useAbleCredit  = $usableCredit;
+        self::$creditHistory->prevCredit  = $usableCredit+1;
+        self::$creditHistory->dataPurchase  = 1;
+        self::$creditHistory->date  = Carbon::now();
+        self::$creditHistory->save();
+    }
+    public static function createNew($request)
+    {
+        self::$creditHistory = new CreditHistory();
+        self::$creditHistory->userId         = $request->id;
+        self::$creditHistory->usedCredit  = 0;
+        self::$creditHistory->useAbleCredit  = 20;
+        self::$creditHistory->prevCredit  = 20;
+        self::$creditHistory->dataPurchase  = 0;
+        self::$creditHistory->date  = Carbon::now();
+        self::$creditHistory->save();
+    }
 }

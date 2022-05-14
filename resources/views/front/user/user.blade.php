@@ -10,6 +10,19 @@
 @endsection
 
 @section('main')
+    <!-- START BREADCRUMB -->
+    <hr class="mt-lg-0 mt-5 text-secondary" />
+    <div class="container">
+        <div class="row">
+            <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $data->first_name.' '.$data->last_name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- END BREADCRUMB -->
     <!-- START SEARCH BARS -->
     <section class="section-searchbar pt-md-5 pb-md-4 py-2 mt-md-0 mt-5">
         <div class="container">
@@ -17,10 +30,11 @@
                 <div class="col-lg-3 col-md-4 col-6 ms-md-auto">
                     <div class="row">
                         <form id="searchPeopleByName" action="{{ route('userSearch') }}">
+                            @csrf
                             <div class="col-12">
-                                <input type="text" name="searchPeople" id="searchPeople"
-                                       class="searchBar bg-white border-5 text-dark fw-normal col-md-11 col-11" {{--onkeyup="searchPeople()"--}}
-                                       placeholder="Search by Name..." onkeypress="handleName" />
+                                <input type="text" name="searchPeople" id="searchPeopleName"
+                                       class="searchBar bg-white border-5 text-dark fw-normal col-md-11 col-11"
+                                       placeholder="Search by Name..."/>
                             </div>
                         </form>
                     </div>
@@ -401,7 +415,7 @@
                 <!-- START PERSON Contact Details -->
                 <section class="section-contact user-details-div">
                     <div class="card user-details-div__card u-box-shadow-1">
-                        <h2 class="card-title">{{ $data->name }}'s Contact Details</h3>
+                        <h2 class="card-title">{{ $data->name }}'s Contact Details</h2>
                             <div class="card-body">
                                 <div class="contact-details__box row mt-5">
                                     <div class="contact-details--icon col-lg-1 col-md-1 col-sm-2 col-2">
@@ -746,10 +760,29 @@
             </div>
         </div>
     </div>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js">
+    </script>
+
+    <script type="text/javascript">
+        let route = "{{ url('/autocomplete-search') }}";
+        $('#searchPeopleName').typeahead({
+            source: function (query, process) {
+                return $.get(route, {
+                    query: query
+                }, function (data) {
+                    return process(data);
+                });
+            }
+        });
+    </script>
+
 @endsection
 
 
-<script>
+{{--<script>
     function handleName(e){
         if(e.key === "Enter"){
             //alert("Enter was just pressed.");
@@ -757,7 +790,7 @@
 
         return false;
     }
-</script>
+</script>--}}
 
 <script>
     var stateObj = { foo: "" };

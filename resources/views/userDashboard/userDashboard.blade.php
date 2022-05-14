@@ -8,38 +8,38 @@
 
     <meta name="description" content="" />
     <meta
-        name="keywords"
-        content="phone number list, mobile number list, sales leads, mobile leads, data prospect, sales crm, contact database, contact details"
+            name="keywords"
+            content="phone number list, mobile number list, sales leads, mobile leads, data prospect, sales crm, contact database, contact details"
     />
 
     <title>You | Phone List</title>
 
     <!-- Bootstrap CSS -->
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
     />
 
     <!-- Bootstrap Icons -->
     <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
     />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
-        rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+            rel="stylesheet"
     />
 
     <!-- Animate CSS -->
     <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
 
     <!-- Custom CSS -->
@@ -54,32 +54,32 @@
 <header>
     <!-- START NAVBAR -->
     <nav
-        class="navbar navbar--user navbar-expand-md navbar-light"
-        id="user-nav"
+            class="navbar navbar--user navbar-expand-md navbar-light"
+            id="user-nav"
     >
         <div class="container-fluid justify-content-end">
             <a class="navbar-brand" href="{{ route('/') }}">
                 <img
-                    class="img-fluid"
-                    src="{{ asset('/') }}adminAsset/assets/images/logo.svg"
-                    alt="phone list"
+                        class="img-fluid"
+                        src="{{ asset('/') }}adminAsset/assets/images/logo.svg"
+                        alt="phone list"
                 />
             </a>
 
             <button
-                class="navbar-toggler me-auto"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
+                    class="navbar-toggler me-auto"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
             >
                 <i class="bi bi-list"></i>
             </button>
             <div
-                class="collapse navbar-collapse justify-content-between"
-                id="navbarSupportedContent"
+                    class="collapse navbar-collapse justify-content-between"
+                    id="navbarSupportedContent"
             >
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item pl-4">
@@ -106,9 +106,9 @@
 
             <!-- START SHOW ELEMENT ON CLICKING USER -->
             <div class="user-div hide u-box-shadow-1">
-                <h4 class="px-4 pt-5"></h4>
+                <h4 class="px-4 pt-5">{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</h4>
                 <div class="user--label mx-4">
-                    <span>{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</span>
+                    <span>User</span>
                 </div>
 
                 <div class="user--menu">
@@ -150,9 +150,9 @@
                 <i class="bi bi-bell"></i>
             </button>
             <button
-                type="button"
-                id="userBtn"
-                class="user user-btn circle-element mx-3"
+                    type="button"
+                    id="userBtn"
+                    class="user user-btn circle-element mx-3"
             >
 
                 <p class="user-name">{{ $firstStringCharacter = substr(Auth::user()->firstName, 0, 1) }}{{ $firstStringCharacter = substr(Auth::user()->lastName, 0, 1) }}</p>
@@ -164,7 +164,7 @@
 
     <!-- START SHOW WHEN CLICKED ON NOTIFICATION -->
     <div
-        class="u-box-shadow-1 notification__sidebar hide animate__animated animate__fadeInRightBig"
+            class="u-box-shadow-1 notification__sidebar hide animate__animated animate__fadeInRightBig"
     >
         <div class="notification--header">
             <div class="notification--header-title">
@@ -185,7 +185,7 @@
 <main id="peopleData">
     <!-- START USER DASHBOARD HEADING-->
     <section
-        class="section-user-dashboard-heading bg-white mt-5 pt-5 px-md-0 px-5"
+            class="section-user-dashboard-heading bg-white mt-5 pt-5 px-md-0 px-5"
     >
         <div class="container">
             <div class="row">
@@ -196,13 +196,13 @@
                     </h2>
                 </div>
                 <div
-                    class="col-md-6 col-10 d-flex align-items-center justify-content-md-end"
+                        class="col-md-6 col-10 d-flex align-items-center justify-content-md-end"
                 >
                     <form action="{{ route('exports')  }}" method="get" enctype="multipart/form-data">
                         @csrf
-                        <button type="submit" class="btn btn-download border-3">
-                            <i class="bi bi-download"></i>
-                            &nbsp; Download Data CSV
+                        <button type="submit" class="btn btn-txt border-3">
+                            Visit Downloaded Data CSVs
+                            <i class="bi bi-arrow-right"></i>
                         </button>
                     </form>
 
@@ -260,17 +260,17 @@
 
 <!-- Bootstrap JS -->
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
 ></script>
 
 <!-- jQuery -->
 <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
 ></script>
 
 <!-- Chart JS -->
@@ -283,17 +283,10 @@
 
 <script>
     //Chart JS PurchaseChart Setup
+
     var data = <?php echo $data; ?>;
     var credit = <?php echo $credit; ?>;
-    const purchaseLabels = [
-        'Day 01',
-        'Day 02',
-        'Day 03',
-        'Day 04',
-        'Day 05',
-        'Day 06',
-        'Day 07',
-    ];
+    const purchaseLabels = <?php echo $day; ?>;
 
     const purchaseData = {
         labels: purchaseLabels,

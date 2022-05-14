@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\User\Searching;
 
+use App\Exports\CustomExport;
 use App\Http\Controllers\Controller;
+use App\Models\Credit;
+use App\Models\CreditHistory;
+use App\Models\ExportHistori;
 use App\Models\PhoneList;
 use App\Models\User;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
+use Response;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class TypeaheadController extends Controller
@@ -16,16 +22,32 @@ class TypeaheadController extends Controller
     {
         $query = $request->get('query');
         $filterResult = PhoneList::where('name', 'LIKE', '%'. $query. '%')->take(10)->get();
-        //return response()->json($filterResult);
         $data = array();
         foreach ($filterResult as $hsl)
         {
             $data[] = $hsl->name;
         }
         return response()->json($data);
-        //echo json_encode($data);
 
     }
+    public function store(Request $request)
+    {
+        $credit=Credit::find(Auth::user()->id);
+        if ($credit->useableCredit >= 1)
+        {
+            ExportHistori::newExportHistoriForOne($request);
+            Credit::updateUserCraditForOne($request);
+            CreditHistory::createForOne($request);
+            $customExport = new CustomExport($request);
+            return Response::json("okay");
+        }
+        else
+        {
+            return redirect('/settings/upgrade');
+        }
+    }
+
+
 
     public function searchPeople($request)
     {

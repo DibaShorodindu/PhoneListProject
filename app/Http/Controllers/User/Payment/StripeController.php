@@ -61,7 +61,7 @@ class StripeController extends Controller
                     "description" => "This payment is tested purpose phpcodingstuff.com"
                 ]);
                 PurchasePlan::createNew($request);
-                Credit::updateCradit($request);
+                Credit::updateCredit($request);
 
 
                 self::invoice($request);
@@ -87,6 +87,7 @@ class StripeController extends Controller
         self::$user = PhoneListUserModel::where('id',$request->userId)->get();
         self::$card = Card::where('userId', $request->userId)->first();
         foreach (self::$user as $userInfo){
+            $data["name"] = $userInfo->firstName.' '.$userInfo->lastName;
             $data["email"] = $userInfo->email;
             $data["country"]= $userInfo->country;
             $data["date"]= Carbon::now()->toString();
